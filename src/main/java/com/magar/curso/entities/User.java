@@ -3,13 +3,22 @@ package com.magar.curso.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_user") //especificação do nome da tabela do banco de dados
 //serializable serve para transformar o objeto em bytes para ter uma movimentação/gravado na rede e em arquivos
 public class User implements Serializable  {
 	
 	//com a implementação do "Serializable" é neccesario colocar um numero de serial
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id //chave primaria é o id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //id uma chave auto incrementavel no bd
 	private Long id;
 	private String name;
 	private String email;
