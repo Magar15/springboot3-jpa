@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,22 +15,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_order") //para evitar um conflito com o sql tivemos que trocar o nome da "classe order"
+@Table(name = "tb_order") // para evitar um conflito com o sql tivemos que trocar o nome da "classe order"
 public class Order implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	
-	@ManyToOne //como os usuarios são "muitos", preciso transformar eles em uma chave para o banca de dados
-	@JoinColumn(name = "client_id") //declarando a chave
+
+	@ManyToOne // como os usuarios são "muitos", preciso transformar eles em uma chave para o
+				// banca de dados
+	@JoinColumn(name = "client_id") // declarando a chave
 	private User client;
-	
-	//construtor vazio
-	public Order() {	
+
+	// construtor vazio
+	public Order() {
 	}
 
 	public Order(Long id, Instant moment, User client) {
@@ -78,7 +83,5 @@ public class Order implements Serializable {
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
 }
