@@ -17,7 +17,6 @@ import com.magar.curso.repositories.CategoryRepository;
 import com.magar.curso.repositories.OrderRepository;
 import com.magar.curso.repositories.ProductRepository;
 import com.magar.curso.repositories.UserRepository;
-import com.magar.curso.resources.ProductResource;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
