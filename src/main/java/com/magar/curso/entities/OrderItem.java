@@ -3,6 +3,9 @@ package com.magar.curso.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.magar.curso.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -14,8 +17,16 @@ import jakarta.persistence.Table;
 public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	
+	//sobre esse JsonProperty: Configuração de acesso que significa que a propriedade só pode ser gravada (configurada) 
+	//para desserialização, mas não será lida (get) na serialização, ou seja, o valor da propriedade não é 
+	//incluído na serialização.
+	
+	
+	//sempre quando for colocar uma classe auxiliar precisa instanciar ela
 	@EmbeddedId
-	private OrderItemPK id;
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private OrderItemPK id = new OrderItemPK();
 	
 	private Integer quantity;
 	private Double price;
@@ -31,6 +42,7 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
